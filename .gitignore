@@ -1,0 +1,9 @@
+__backup__/
+__test*.png
+__build_commits.js
+__chrome_dom.html
+__full__/
+.DS_Store
+Thumbs.db
+*.log
+node_modules/

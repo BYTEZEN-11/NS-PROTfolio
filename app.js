@@ -738,3 +738,65 @@ function runIntro() {
   requestAnimationFrame(tick);
 
   function done() {
+    intro.classList.add("is-done");
+    document.body.classList.add("loaded");
+    setTimeout(() => intro.remove(), 800);
+  }
+}
+function setupSmoothScroll() {
+  $$('a[href^="#"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const id = a.getAttribute("href");
+      if (id.length < 2) return;
+      const t = document.querySelector(id);
+      if (!t) return;
+      e.preventDefault();
+      window.scrollTo({ top: t.offsetTop - 70, behavior: reducedMotion() ? "auto" : "smooth" });
+    });
+  });
+}
+const revealIO = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add("is-in");
+        revealIO.unobserve(e.target);
+      }
+    });
+  },
+  { threshold: 0.1, rootMargin: "-10% 0px" }
+);
+function boot() {
+  bindData();
+  buildSectionHeadings();
+  buildNav();
+  buildSocials("#heroSocials", false);
+  buildSocials("#contactSocials", true);
+  buildStats();
+  buildAbout();
+  buildOSS();
+  buildProjects();
+  buildSkills();
+  buildHighlights();
+  buildGallery();
+  buildInterests();
+  buildGoals();
+  buildMarquee();
+  buildFooterGiant();
+
+  setupDemo();
+  setupContact();
+  setupBackToTop();
+  setupMagnetic();
+  setupMobileMenu();
+  setupHeader();
+  setupReveals();
+  setupSmoothScroll();
+
+  runIntro();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot);
+} else {
+  boot();

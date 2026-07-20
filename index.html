@@ -278,3 +278,36 @@
               <input type="text" name="name" id="fName" required placeholder=" " />
               <span class="field__lbl">name</span>
             </label>
+            <label class="field">
+              <input type="email" name="email" id="fEmail" required placeholder=" " />
+              <span class="field__lbl">email</span>
+            </label>
+          </div>
+          <div class="contact__topics">
+            <span class="contact__topics-lbl">what's it about?</span>
+            <div class="chips chips--select" id="topicChips"></div>
+            <input type="hidden" name="topic" id="fTopic" />
+          </div>
+          <label class="field field--ta">
+            <textarea name="message" id="fMessage" rows="3" required placeholder=" "></textarea>
+            <span class="field__lbl">message</span>
+          </label>
+          <button type="submit" class="btn btn--amber btn--block" data-magnetic>
+            <span>SEND IT</span>
+            <span class="btn__arrow">→</span>
+          </button>
+          <p class="contact__toast" id="contactToast" role="status" aria-live="polite">✓ opens your mail client</p>
+          <p class="contact__foot">form backend not yet wired — submit opens your mail client with the message pre-filled.</p>
+        </form>
+      </div>
+    </section>
+    <footer class="ftr">
+      <a href="#home" class="ftr__brand" data-bind="profile.wordmark"></a>
+      <ul class="ftr__nav" id="ftrNav"></ul>
+      <div class="ftr__giant" id="ftrGiant"></div>
+      <p class="ftr__meta">© 2026 NITESH SINGH · BUILT WITH CARE — SHIPPED IN PUBLIC</p>
+    </footer>
+  </main>
+  <button class="toTop" id="toTop" aria-label="Back to top">↑</button>
+  <script type="module" src="app.js"></script>
+</body>

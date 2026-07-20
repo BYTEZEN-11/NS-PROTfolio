@@ -390,3 +390,4 @@ export const sectionTitles = {
   interests:    { eyebrow: "05 / INTERESTS",  words: [{ text: "what" }, { text: "drives" }, { text: "me", accent: "amber" }] },
   goals:        { eyebrow: "06 / GOALS",      words: [{ text: "where" }, { text: "i'm" }, { text: "headed", accent: "amber" }] },
   contact:      { eyebrow: "07 / CONTACT",    words: [{ text: "let's" }, { text: "build" }, { text: "something", accent: "amber" }, { text: "." }] }
+};

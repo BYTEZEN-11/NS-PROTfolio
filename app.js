@@ -338,3 +338,103 @@ function projectCard(p) {
   const caseBtn = p.caseStudy
     ? `<a class="pbtn pbtn--case" href="${p.caseStudy}">
          <span class="pbtn__ic">${docIcon()}</span><span>case study</span>
+       </a>`
+    : "";
+  const stack = (p.stack || []).slice(0, 6).map((s) => `<span class="chip">${s}</span>`).join("");
+  const thumb = p.thumb
+    ? `<img src="${p.thumb}" alt="" loading="lazy" onerror="this.style.display='none'" />`
+    : "";
+  return `
+    <article class="proj-card${p.featured ? " proj-card--featured" : ""}" data-id="${p.id}">
+      <div class="proj-card__thumb">
+        <div class="proj-card__badges">
+          <span class="badge badge--cat">${cat.label}</span>
+          ${featured}
+        </div>
+        ${thumb}
+      </div>
+      <div class="proj-card__body">
+        <div class="proj-card__head">
+          <h3 class="proj-card__title">${p.title}</h3>
+          <span class="proj-card__type">${p.type} · ${p.year}</span>
+        </div>
+        <p class="proj-card__desc">${p.description || ""}</p>
+        <div class="proj-card__stack">${stack}</div>
+      </div>
+      <div class="proj-card__foot">
+        ${repoBtn}
+        ${demoBtn}
+        ${caseBtn}
+        ${projectStatusBadge(p.status)}
+      </div>
+    </article>`;
+}
+
+function projectSkeleton() {
+  return `
+    <article class="proj-card proj-card--skeleton" aria-hidden="true">
+      <div class="proj-card__thumb"><span class="skel skel--thumb"></span></div>
+      <div class="proj-card__body">
+        <div class="skel skel--title"></div>
+        <div class="skel skel--type"></div>
+        <div class="skel skel--desc"></div>
+        <div class="skel skel--desc2"></div>
+        <div class="skel skel--stack"></div>
+      </div>
+      <div class="proj-card__foot">
+        <span class="skel skel--btn"></span>
+        <span class="skel skel--btn"></span>
+      </div>
+    </article>`;
+}
+
+function ghIcon()    { return `<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.6.5 12c0 5 3.3 9.3 7.8 10.8.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2.9-.3 1.9-.4 2.9-.4s2 .1 2.9.4c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.5 4.5-1.5 7.8-5.8 7.8-10.8C23.5 5.6 18.3.5 12 .5z"/></svg>`; }
+function extIcon()   { return `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M20 14v6H4V4h6"/></svg>`; }
+function docIcon()   { return `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h6"/></svg>`; }
+
+function buildProjectFilters() {
+  const wrap = $("#projFilters");
+  if (!wrap) return;
+  const allCount = D.projects.length;
+  const counts = { all: allCount };
+  D.projectCategories.forEach((c) => {
+    counts[c.key] = D.projects.filter((p) => p.category === c.key).length;
+  });
+  const pills = [{ key: "all", label: "All", num: counts.all }]
+    .concat(D.projectCategories.map((c) => ({ key: c.key, label: c.label, num: counts[c.key] })));
+
+  wrap.innerHTML = pills.map((p) => `
+    <button class="filt ${p.key === projState.category ? "is-on" : ""}"
+            data-cat="${p.key}" role="tab" aria-selected="${p.key === projState.category}">
+      <span>${p.label}</span>
+      <span class="filt__num">${p.num}</span>
+    </button>
+  `).join("");
+
+  wrap.addEventListener("click", (e) => {
+    const btn = e.target.closest(".filt");
+    if (!btn) return;
+    const cat = btn.dataset.cat;
+    if (cat === projState.category) return;
+    projState.category = cat;
+    wrap.querySelectorAll(".filt").forEach((f) => {
+      const on = f.dataset.cat === cat;
+      f.classList.toggle("is-on", on);
+      f.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    updateProjectBlurb();
+    renderProjects( true);
+  });
+}
+
+function buildProjectSort() {
+  const sel = $("#projSort");
+  if (!sel) return;
+  sel.innerHTML = D.projectSorts.map((s) => `<option value="${s.key}">${s.label}</option>`).join("");
+  sel.value = projState.sort;
+  sel.addEventListener("change", () => {
+    projState.sort = sel.value;
+    renderProjects(true);
+  });
+}
+

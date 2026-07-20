@@ -108,3 +108,93 @@ export const ossContribs = [
       { id: "#TBD-5", desc: "Add a short description of your contribution to this open source project.", category: "Feature" }
     ]
   },
+  {
+    org: "your-org-here-3",
+    project: "Open Source Project 3",
+    context: "OSS",
+    mergedLabel: "X+ merged PRs",
+    prs: [
+      { id: "#TBD-6", desc: "Add a short description of your contribution to this open source project.", category: "Feature" },
+      { id: "#TBD-7", desc: "Add a short description of your contribution to this open source project.", category: "Docs" },
+      { id: "#TBD-8", desc: "Add a short description of your contribution to this open source project.", category: "Bug Fix" }
+    ]
+  }
+];
+export const prCategoryColors = {
+  Reliability:   "var(--coral)",
+  Performance:   "var(--amber)",
+  Security:      "var(--amber-deep)",
+  "Bug Fix":     "var(--muted-2)",
+  Quality:       "var(--muted-2)",
+  "Input Safety":"var(--coral)",
+  Networking:    "var(--coral)"
+};
+export const projectCategories = [
+  { key: "mern",   label: "MERN Stack",  full: "MERN Stack Projects",         blurb: "MongoDB · Express · React · Node — full JS from DB to UI." },
+  { key: "full",   label: "Full Stack",  full: "Full Stack Projects",         blurb: "Polyglot apps with a real backend, real auth, real deploys." },
+  { key: "mobile", label: "Mobile Apps", full: "Mobile Application Projects", blurb: "Native-feel mobile apps, Android & cross-platform." },
+  { key: "ai",     label: "AI / ML",     full: "AI / Machine Learning Projects", blurb: "Classical ML, LLM systems, and data pipelines that ship." },
+  { key: "genai",  label: "GenAI",       full: "Generative AI Projects",      blurb: "LLM apps, RAG, agents, and prompt-engineered workflows." }
+];
+export const projects = [
+  {
+    id: "cloudvault",
+    title: "CloudVault",
+    category: "full",
+    type: "Full-Stack Web App · OJT",
+    year: 2025,
+    month: 6,
+    status: "in-progress",
+    featured: true,
+    description: "Secure file-storage platform with JWT auth, role-based access, AWS S3 integration, and a responsive React frontend with dark mode.",
+    stack: ["FastAPI", "MongoDB Atlas", "React.js", "Tailwind CSS", "JWT", "AWS S3"],
+    deployment: "Render (backend) + Vercel (frontend)",
+    thumb: "https://i.ibb.co/Zpw42B0y/PHOTO-2.jpg",
+    repo: null,
+    demo: null,
+    caseStudy: null
+  },
+  {
+    id: "github-stats-api",
+    title: "GitHub Stats API",
+    category: "full",
+    type: "Personal · API",
+    year: 2024,
+    month: 9,
+    status: "completed",
+    featured: false,
+    description: "REST API that fetches and serves GitHub user statistics — repos, contributions, activity — in real time.",
+    stack: ["Python", "GitHub API", "REST", "FastAPI"],
+    deployment: "Local + Docker",
+    thumb: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+    repo: null,
+    demo: null,
+    caseStudy: null
+  },
+  {
+    id: "dev-dash",
+    title: "DevDash",
+    category: "full",
+    type: "Personal Dashboard",
+    year: 2025,
+    month: 3,
+    status: "completed",
+    featured: true,
+    description: "A self-hosted developer dashboard — pinned repos, CI status, and a tiny kanban — wired together with webhooks.",
+    stack: ["Next.js", "Postgres", "GitHub API", "Tailwind CSS"],
+    deployment: "Vercel + Neon",
+    thumb: "https://images.unsplash.com/photo-1518770660439-4636190af475?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+    repo: null, demo: null, caseStudy: null
+  },
+  {
+    id: "mern-chat",
+    title: "CipherChat",
+    category: "mern",
+    type: "Real-time Messaging · MERN",
+    year: 2025,
+    month: 1,
+    status: "completed",
+    featured: true,
+    description: "End-to-end encrypted chat app with rooms, presence indicators, and MongoDB-backed message history.",
+    stack: ["MongoDB", "Express", "React", "Node", "Socket.IO", "JWT"],
+    deployment: "Vercel + Render",

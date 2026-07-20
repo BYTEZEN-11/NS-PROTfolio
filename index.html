@@ -48,3 +48,43 @@
         <ul class="hdr__list" id="navList"></ul>
       </nav>
       <span class="hdr__pill">
+        <span class="dot dot--amber"></span>
+        <span data-bind="profile.madeInIndia"></span>
+      </span>
+      <button class="hdr__menu" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+        <span class="hdr__menu-line"></span>
+        <span class="hdr__menu-line"></span>
+      </button>
+    </div>
+    <div class="hdr__drawer" id="mobileMenu" hidden>
+      <ul class="hdr__drawer-list" id="drawerList"></ul>
+    </div>
+  </header>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero__inner">
+        <div class="hero__left">
+          <div class="eyebrow eyebrow--bar">
+            <span class="bar"></span>
+            <span>— full-stack developer — open source contributor</span>
+          </div>
+          <h1 class="hero__h1 reveal-words" id="heroH1"></h1>
+          <svg class="hero__underline" viewBox="0 0 600 24" aria-hidden="true">
+            <path d="M2 14 C 120 4, 320 22, 598 8" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <p class="hero__bio" data-bind="profile.bio"></p>
+          <div class="hero__meta">
+            <span data-bind="profile.education"></span>
+            <span class="hero__meta-sep">·</span>
+            <span data-bind="profile.batch"></span>
+          </div>
+          <div class="hero__socials" id="heroSocials"></div>
+          <div class="hero__ctas">
+            <a href="#" class="btn btn--ink" data-magnetic>
+              <span>RESUME</span>
+              <span class="btn__arrow">↗</span>
+            </a>
+            <a href="#projects" class="btn btn--ghost" data-magnetic>
+              <span>SEE THE WORK</span>
+              <span class="btn__arrow btn__arrow--end">→</span>
+            </a>

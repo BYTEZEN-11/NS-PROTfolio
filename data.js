@@ -318,3 +318,75 @@ export const skillGroups = [
   { group: "Cloud Native & DevOps", items: ["Kubernetes", "Docker", "AWS", "Prometheus", "Grafana", "GitHub Actions", "CI/CD", "Vercel", "Render", "minikube", "YAML"] },
   { group: "Security",            items: ["Penetration Testing", "Vulnerability Analysis", "TOCTOU Hardening", "Script Injection Prevention", "GitHub Actions Hardening", "PromQL Injection", "Secure tempfile handling", "HackerOne", "OverTheWire", "Wireless Security"] },
   { group: "Web & Backend",       items: ["FastAPI", "React.js", "Tailwind CSS", "MongoDB Atlas", "AWS S3", "JWT Auth", "REST APIs", "Render", "Vercel"] },
+  { group: "Data & AI / ML",      items: ["NumPy", "Pandas", "Matplotlib", "Seaborn", "sentence-transformers", "LLM Routing", "NVIDIA NIM", "DeepSeek", "Ollama", "FastMCP"] },
+  { group: "OS & Tools",          items: ["Arch Linux", "macOS", "Git & GitHub", "Streamlit", "MCP (Model Context Protocol)", "Kernel concepts"] }
+];
+export const highlights = [
+  "MERN stack apps — secure REST APIs, role-based auth, real deploys",
+  "Mobile apps shipped on Play Store (Flutter / Kotlin)",
+  "AI / ML side projects — classifiers, RAG prototypes, MCP servers",
+  "Open-source contributions across multiple repos — add yours here"
+];
+export const focusAreas = [
+  "Full-Stack Web Development",
+  "MERN & Mobile Apps",
+  "AI / ML & LLM Systems",
+  "Cloud-Native & DevOps",
+  "Open Source Culture",
+  "Developer Experience"
+];
+export const freeTime = [
+  "Side-project weekends (MERN, Flutter, AI tools)",
+  "Reading other people's source code",
+  "LeetCode & competitive practice",
+  "Writing tech notes & tutorials",
+  "Exploring LLM routing & model integrations"
+];
+export const osOfChoice = "Arch Linux 🐧";
+export const goals = [
+  { horizon: "Short term",  items: ["Land a tech internship (actively applying)", "Ship 2 more public projects", "Push weekly OSS contributions"] },
+  { horizon: "Medium term", items: ["Full-time new-grad role at a product company", "Maintain a popular OSS library", "Speak at a meetup / write a long-form post"] },
+  { horizon: "Long term",   items: ["Build tools developers love", "Run a small product / studio", "Keep learning in public"] }
+];
+export const marqueeDark = [
+  "let's build",
+  "open source",
+  "ship code",
+  "stay curious"
+];
+export const contactTopics = [
+  "Internship",
+  "Open Source",
+  "Security Research",
+  "Collaboration"
+];
+export const gallery = [
+  { src: "https://i.ibb.co/Zpw42B0y/PHOTO-2.jpg", alt: "NITESH Singh" },
+  { src: "https://images.unsplash.com/photo-1608742213509-815b97c30b36?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080", alt: "Terminal session on a monitor" },
+  { src: "https://images.unsplash.com/photo-1557701197-2f99da0922dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080", alt: "Circuit board macro" },
+  { src: "https://images.unsplash.com/photo-1683322499436-f4383dd59f5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080", alt: "Network cabling" },
+  { src: "https://images.unsplash.com/photo-1650661926447-9efb2610f64c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080", alt: "Backlit mechanical keyboard" },
+  { src: "https://images.unsplash.com/photo-1778259205831-cf8f8bfebc80?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080", alt: "Source code on a dark screen" }
+];
+export const footerGiant = [
+  { text: "ship things,", outline: true },
+  { text: "ship fixes",  outline: false, dot: true }
+];
+export const aboutQuote = [
+  { text: "student by day. " },
+  { text: "builder",      accent: "amber" },
+  { text: " by night. " },
+  { text: " arch linux",  accent: "coral" },
+  { text: ", always." }
+];
+export const sectionTitles = {
+  about:        { eyebrow: "— ABOUT",         words: [{ text: "i'm" }, { text: "a" }, { text: "full-stack" }, { text: "developer" }], size: "lg" },
+  demo:         { eyebrow: "01 / LIVE DEMO",  words: [{ text: "ship," }, { text: "on" }, { text: "purpose", accent: "amber" }, { text: "." }] },
+  openSource:   { eyebrow: "02 / OPEN SOURCE", words: [{ text: "merged" }, { text: "upstream", accent: "amber" }] },
+  projects:     { eyebrow: "03 / PROJECTS",   words: [{ text: "things" }, { text: "i've" }, { text: "built", accent: "amber" }] },
+  skills:       { eyebrow: "04 / SKILLS",     words: [{ text: "the" }, { text: "toolbox", accent: "amber" }] },
+  highlights:   { eyebrow: "— HIGHLIGHTS" },
+  gallery:      { eyebrow: "— THE LAB",       words: [{ text: "the" }, { text: "lab" }] },
+  interests:    { eyebrow: "05 / INTERESTS",  words: [{ text: "what" }, { text: "drives" }, { text: "me", accent: "amber" }] },
+  goals:        { eyebrow: "06 / GOALS",      words: [{ text: "where" }, { text: "i'm" }, { text: "headed", accent: "amber" }] },
+  contact:      { eyebrow: "07 / CONTACT",    words: [{ text: "let's" }, { text: "build" }, { text: "something", accent: "amber" }, { text: "." }] }

@@ -208,3 +208,73 @@
         <h2 class="sec__h2 reveal-words" id="skillsH2"></h2>
       </header>
       <div class="skills__grid" id="skillsGrid"></div>
+    </section>
+    <section class="sec sec--dark sec--highlights" id="highlights">
+      <header class="sec__head reveal">
+        <div class="eyebrow eyebrow--dark" data-bind="sectionTitles.highlights.eyebrow"></div>
+      </header>
+      <div class="hl__grid" id="hlGrid"></div>
+    </section>
+    <section class="sec sec--gallery" id="gallery">
+      <header class="sec__head reveal">
+        <div class="eyebrow" data-bind="sectionTitles.gallery.eyebrow"></div>
+        <h2 class="sec__h2 reveal-words" id="galleryH2"></h2>
+      </header>
+      <div class="gallery__grid" id="galleryGrid"></div>
+      <div class="gallery__overlay" aria-hidden="true">
+        <span>systems</span>
+      </div>
+    </section>
+    <section class="sec sec--ig" id="interests">
+      <div class="ig">
+        <div class="ig__col">
+          <header class="sec__head reveal">
+            <div class="eyebrow" data-bind="sectionTitles.interests.eyebrow"></div>
+            <h2 class="sec__h2 reveal-words" id="interestsH2"></h2>
+          </header>
+          <div class="ig__block reveal">
+            <h3 class="ig__h3">focus areas</h3>
+            <div class="chips" id="focusChips"></div>
+          </div>
+          <div class="ig__block reveal">
+            <h3 class="ig__h3">in my free time</h3>
+            <ul class="ig__list" id="freeList"></ul>
+          </div>
+          <div class="ig__block reveal">
+            <h3 class="ig__h3">os of choice</h3>
+            <span class="ig__os" id="osChoice"></span>
+          </div>
+        </div>
+        <div class="ig__col">
+          <header class="sec__head reveal">
+            <div class="eyebrow" data-bind="sectionTitles.goals.eyebrow"></div>
+            <h2 class="sec__h2 reveal-words" id="goalsH2"></h2>
+          </header>
+          <div class="goals" id="goalsList"></div>
+        </div>
+      </div>
+    </section>
+    <div class="marquee marquee--dark" aria-hidden="true">
+      <div class="marquee__track" id="darkMarquee"></div>
+    </div>
+    <section class="sec sec--dark sec--contact" id="contact">
+      <header class="sec__head reveal">
+        <div class="eyebrow eyebrow--dark" data-bind="sectionTitles.contact.eyebrow"></div>
+        <h2 class="sec__h2 sec__h2--dark reveal-words" id="contactH2"></h2>
+      </header>
+      <div class="contact">
+        <div class="contact__left reveal">
+          <p class="contact__lede">
+            Reach out about internships, OSS collaboration, security research,
+            or just to say hi — I read every message.
+          </p>
+          <a class="contact__email" id="contactEmail" data-bind-href="profile.email" data-magnetic></a>
+          <a class="contact__phone" id="contactPhone" data-bind-href="profile.phone" data-bind-tel="profile.phone"></a>
+          <div class="contact__socials" id="contactSocials"></div>
+        </div>
+        <form class="contact__form reveal" id="contactForm" novalidate>
+          <div class="contact__row">
+            <label class="field">
+              <input type="text" name="name" id="fName" required placeholder=" " />
+              <span class="field__lbl">name</span>
+            </label>

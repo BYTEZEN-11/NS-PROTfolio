@@ -598,3 +598,143 @@ function buildInterests() {
     li.textContent = c;
     fl.appendChild(li);
   });
+  const os = $("#osChoice");
+  if (os) os.textContent = D.osOfChoice;
+}
+function buildGoals() {
+  const t = $("#goalsList");
+  if (!t) return;
+  D.goals.forEach((g) => {
+    const div = document.createElement("article");
+    div.className = "goal reveal";
+    div.innerHTML = `
+      <h3 class="goal__h">${g.horizon}</h3>
+      <ul class="goal__list">${g.items.map((i) => `<li>${i}</li>`).join("")}</ul>
+    `;
+    t.appendChild(div);
+    revealIO.observe(div);
+  });
+}
+function buildMarquee() {
+  const t = $("#darkMarquee");
+  if (!t) return;
+  const list = [...D.marqueeDark, ...D.marqueeDark, ...D.marqueeDark, ...D.marqueeDark];
+  list.forEach((w) => {
+    const span = document.createElement("span");
+    span.textContent = w;
+    t.appendChild(span);
+  });
+}
+function setupContact() {
+  const topics = $("#topicChips");
+  const hidden = $("#fTopic");
+  if (topics) {
+    D.contactTopics.forEach((t) => {
+      const chip = document.createElement("span");
+      chip.className = "chip";
+      chip.textContent = t;
+      chip.setAttribute("role", "button");
+      chip.setAttribute("tabindex", "0");
+      chip.addEventListener("click", () => {
+        $$(".chip", topics).forEach((c) => c.classList.remove("is-on"));
+        chip.classList.add("is-on");
+        hidden.value = t;
+      });
+      chip.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); chip.click(); }
+      });
+      topics.appendChild(chip);
+    });
+  }
+
+  const form  = $("#contactForm");
+  const toast = $("#contactToast");
+  if (!form) return;
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name    = $("#fName").value.trim();
+    const email   = $("#fEmail").value.trim();
+    const message = $("#fMessage").value.trim();
+    const topic   = hidden.value || "General";
+
+    if (!name || !email || !message) {
+      toast.textContent = "✗ fill in name, email, and message";
+      toast.style.color = "#ff8a80";
+      toast.classList.add("is-in");
+      setTimeout(() => toast.classList.remove("is-in"), 2500);
+      return;
+    }
+
+    const subject = encodeURIComponent(`[ar.] ${topic} — ${name}`);
+    const body = encodeURIComponent(
+      `name:    ${name}\n` +
+      `email:   ${email}\n` +
+      `topic:   ${topic}\n\n` +
+      `${message}\n`
+    );
+    window.location.href = `mailto:${D.profile.email}?subject=${subject}&body=${body}`;
+    toast.textContent = "✓ opens your mail client";
+    toast.style.color = "var(--amber)";
+    toast.classList.add("is-in");
+    setTimeout(() => toast.classList.remove("is-in"), 3000);
+  });
+}
+function buildFooterGiant() {
+  const t = $("#ftrGiant");
+  if (!t) return;
+  D.footerGiant.forEach((line) => {
+    const span = document.createElement("span");
+    span.className = line.outline
+      ? "ftr__giant-out"
+      : (line.dot ? "ftr__giant-dot" : "");
+    span.textContent = line.text + (line.dot ? "." : "");
+    t.appendChild(span);
+  });
+}
+function setupBackToTop() {
+  const btn = $("#toTop");
+  if (!btn) return;
+  window.addEventListener("scroll", () => {
+    btn.classList.toggle("is-visible", window.scrollY > 800);
+  }, { passive: true });
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reducedMotion() ? "auto" : "smooth" });
+  });
+}
+function setupMagnetic() {
+  $$("[data-magnetic]").forEach((el) => {
+    el.addEventListener("mousemove", (e) => {
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - (r.left + r.width / 2);
+      const y = e.clientY - (r.top + r.height / 2);
+      el.style.setProperty("--mx", x.toFixed(1) + "px");
+      el.style.setProperty("--my", y.toFixed(1) + "px");
+    });
+    el.addEventListener("mouseleave", () => {
+      el.style.setProperty("--mx", "0px");
+      el.style.setProperty("--my", "0px");
+    });
+  });
+}
+function runIntro() {
+  const intro = $("#intro");
+  const cnt   = $("#introCounter");
+  if (!intro) return;
+  if (reducedMotion()) {
+    setTimeout(() => done(), 200);
+    return;
+  }
+  const start = performance.now();
+  const dur = 2200;
+  const tick = (t) => {
+    const p = Math.min(1, (t - start) / dur);
+
+    const e = 1 - Math.pow(1 - p, 3);
+    const v = Math.round(1 + e * 99);
+    if (cnt) cnt.textContent = String(v).padStart(3, "0");
+    if (p < 1) requestAnimationFrame(tick);
+    else done();
+  };
+  requestAnimationFrame(tick);
+
+  function done() {

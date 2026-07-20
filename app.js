@@ -228,3 +228,113 @@ function setupDemo() {
 
   btn.addEventListener("click", () => {
     if (playing) return;
+    if (lineIdx >= D.demoScript.length) reset();
+    playing = true;
+    nextLine();
+  });
+}
+function buildOSS() {
+  const grid = $("#ossGrid");
+  if (!grid) return;
+  D.ossContribs.forEach((org) => {
+    const card = document.createElement("article");
+    card.className = "oss-card reveal";
+    const prs = org.prs
+      .map((pr) => {
+        const color = D.prCategoryColors[pr.category] || "var(--muted-2)";
+        return `
+          <div class="oss-pr">
+            <span class="oss-pr__id">${pr.id}</span>
+            <span class="oss-pr__desc">${pr.desc}</span>
+            <span class="oss-pr__cat" style="color:${color}">${pr.category}</span>
+          </div>`;
+      })
+      .join("");
+    card.innerHTML = `
+      <div class="oss-card__head">
+        <div>
+          <div class="oss-card__org">${org.org}</div>
+          <div class="oss-card__sub">${org.project}</div>
+        </div>
+        <div class="oss-card__pills">
+          <span class="oss-pill">${org.context}</span>
+          <span class="oss-pill oss-pill--amber">${org.mergedLabel}</span>
+        </div>
+      </div>
+      <div class="oss-card__prs">${prs}</div>
+    `;
+    grid.appendChild(card);
+    revealIO.observe(card);
+  });
+}
+const projState = {
+  category: "all",
+  query: "",
+  sort: "latest"
+};
+
+function projectCategoryLabel(key) {
+  const c = D.projectCategories.find((x) => x.key === key);
+  return c ? c.label : "All";
+}
+
+function projectMatchesSearch(p, q) {
+  if (!q) return true;
+  const hay = [
+    p.title,
+    p.type,
+    p.description,
+    projectCategoryLabel(p.category),
+    ...(p.stack || [])
+  ].join(" ").toLowerCase();
+  return q.toLowerCase().split(/\s+/).filter(Boolean).every((tok) => hay.includes(tok));
+}
+
+function projectSorted(list, sort) {
+  const arr = [...list];
+  switch (sort) {
+    case "oldest":
+      arr.sort((a, b) => (a.year - b.year) || ((a.month || 0) - (b.month || 0)));
+      break;
+    case "featured":
+      arr.sort((a, b) => (b.featured - a.featured) || (b.year - a.year));
+      break;
+    case "alpha":
+      arr.sort((a, b) => a.title.localeCompare(b.title));
+      break;
+    case "latest":
+    default:
+      arr.sort((a, b) => (b.year - a.year) || ((b.month || 0) - (a.month || 0)));
+  }
+  return arr;
+}
+
+function projectStatusBadge(status) {
+  if (status === "in-progress") {
+    return `<span class="badge badge--status-prog">● in progress</span>`;
+  }
+  return `<span class="badge badge--status-done">✓ completed</span>`;
+}
+
+function projectCard(p) {
+  const cat = D.projectCategories.find((c) => c.key === p.category) || { label: p.category };
+  const featured = p.featured
+    ? `<span class="badge badge--feat">★ featured</span>`
+    : "";
+  const repoBtn = p.repo
+    ? `<a class="pbtn pbtn--gh" href="${p.repo}" target="_blank" rel="noopener">
+         <span class="pbtn__ic">${ghIcon()}</span><span>github</span>
+       </a>`
+    : `<span class="pbtn pbtn--soon" aria-disabled="true">
+         <span class="pbtn__ic">${ghIcon()}</span><span>github soon</span>
+       </span>`;
+  const demoBtn = p.demo
+    ? `<a class="pbtn pbtn--demo" href="${p.demo}" target="_blank" rel="noopener">
+         <span class="pbtn__ic">${extIcon()}</span><span>live demo</span>
+       </a>`
+    : `<span class="pbtn pbtn--soon" aria-disabled="true">
+         <span class="pbtn__ic">${extIcon()}</span><span>demo soon</span>
+       </span>`;
+  const caseBtn = p.caseStudy
+    ? `<a class="pbtn pbtn--case" href="${p.caseStudy}">
+         <span class="pbtn__ic">${docIcon()}</span><span>case study</span>

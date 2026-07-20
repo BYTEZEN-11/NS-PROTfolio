@@ -438,3 +438,163 @@ function buildProjectSort() {
   });
 }
 
+function setupProjectSearch() {
+  const input = $("#projSearch");
+  const clear = $("#projSearchClear");
+  if (!input) return;
+  let t = null;
+  input.addEventListener("input", () => {
+    clear.hidden = !input.value;
+    if (t) clearTimeout(t);
+    t = setTimeout(() => {
+      projState.query = input.value.trim();
+      renderProjects(true);
+    }, 120);
+  });
+  clear.addEventListener("click", () => {
+    input.value = "";
+    clear.hidden = true;
+    projState.query = "";
+    renderProjects(true);
+    input.focus();
+  });
+}
+
+function updateProjectBlurb() {
+  const blurb = $("#projBlurb");
+  if (!blurb) return;
+  let text = "";
+  let tag = "";
+  if (projState.category === "all") {
+    text = "Every project I've built — web, mobile, AI, and GenAI. Use the filters to narrow down.";
+    tag = "all";
+  } else {
+    const c = D.projectCategories.find((x) => x.key === projState.category);
+    if (c) { text = c.blurb; tag = c.label.toLowerCase(); }
+  }
+  blurb.classList.add("is-swapping");
+  setTimeout(() => {
+    blurb.textContent = text;
+    $("#projFilterTag").textContent = tag ? "· " + tag : "";
+    blurb.classList.remove("is-swapping");
+  }, 180);
+}
+
+function renderProjects(animate = true) {
+  const grid  = $("#projGrid");
+  const empty = $("#projEmpty");
+  const cnt   = $("#projCount");
+  const lbl   = $("#projCountLbl");
+  if (!grid) return;
+  if (animate) {
+    grid.innerHTML = "";
+    for (let i = 0; i < 4; i++) grid.insertAdjacentHTML("beforeend", projectSkeleton());
+  }
+
+  setTimeout(() => {
+
+    const filtered = D.projects
+      .filter((p) => projState.category === "all" || p.category === projState.category)
+      .filter((p) => projectMatchesSearch(p, projState.query));
+    const sorted = projectSorted(filtered, projState.sort);
+    if (cnt) cnt.textContent = sorted.length;
+    if (lbl) lbl.textContent = sorted.length === 1 ? "project" : "projects";
+    if (sorted.length === 0) {
+      grid.innerHTML = "";
+      if (empty) empty.hidden = false;
+      return;
+    }
+    if (empty) empty.hidden = true;
+    grid.innerHTML = sorted.map(projectCard).join("");
+    const cards = grid.querySelectorAll(".proj-card:not(.proj-card--skeleton)");
+    cards.forEach((card, i) => {
+      card.style.transitionDelay = Math.min(i * 60, 480) + "ms";
+      requestAnimationFrame(() => card.classList.add("is-in"));
+    });
+  }, animate ? 220 : 0);
+}
+
+function buildProjects() {
+  buildProjectFilters();
+  buildProjectSort();
+  setupProjectSearch();
+  updateProjectBlurb();
+
+  projState.category = "all";
+  projState.sort = "latest";
+  renderProjects(false);
+
+  const r = $("#projEmptyReset");
+  if (r) r.addEventListener("click", () => {
+    projState.category = "all";
+    projState.query = "";
+    const inp = $("#projSearch"); if (inp) inp.value = "";
+    const clr = $("#projSearchClear"); if (clr) clr.hidden = true;
+    document.querySelectorAll("#projFilters .filt").forEach((f) => {
+      const on = f.dataset.cat === "all";
+      f.classList.toggle("is-on", on);
+      f.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    updateProjectBlurb();
+    renderProjects(true);
+  });
+}
+function buildSkills() {
+  const grid = $("#skillsGrid");
+  if (!grid) return;
+  D.skillGroups.forEach((g, i) => {
+    const div = document.createElement("div");
+    div.className = "skills__group reveal";
+    div.style.transitionDelay = (i * 50) + "ms";
+    div.innerHTML = `
+      <h3 class="skills__group-h">${g.group}</h3>
+      <div class="chips">${g.items.map((s) => `<span class="chip">${s}</span>`).join("")}</div>
+    `;
+    grid.appendChild(div);
+    revealIO.observe(div);
+  });
+}
+function buildHighlights() {
+  const grid = $("#hlGrid");
+  if (!grid) return;
+  D.highlights.forEach((h, i) => {
+    const card = document.createElement("article");
+    card.className = "hl-card reveal";
+    card.style.transitionDelay = (i * 60) + "ms";
+    const num = String(i + 1).padStart(2, "0");
+    card.innerHTML = `
+      <span class="hl-card__num">— ${num}</span>
+      <p class="hl-card__text">${h}</p>
+    `;
+    grid.appendChild(card);
+    revealIO.observe(card);
+  });
+}
+function buildGallery() {
+  const grid = $("#galleryGrid");
+  if (!grid) return;
+  D.gallery.forEach((g, i) => {
+    const tile = document.createElement("a");
+    tile.href = g.src;
+    tile.target = "_blank";
+    tile.rel = "noopener";
+    tile.className = "gallery__tile reveal" + (i === 0 ? " gallery__tile--big" : "");
+    tile.style.transitionDelay = (i * 50) + "ms";
+    tile.innerHTML = `<img src="${g.src}" alt="${g.alt}" loading="lazy" />`;
+    grid.appendChild(tile);
+    revealIO.observe(tile);
+  });
+}
+function buildInterests() {
+  const f = $("#focusChips");
+  if (f) D.focusAreas.forEach((c) => {
+    const s = document.createElement("span");
+    s.className = "chip"; s.textContent = c;
+    f.appendChild(s);
+  });
+  const fl = $("#freeList");
+  if (fl) D.freeTime.forEach((c) => {
+    const li = document.createElement("li");
+    li.textContent = c;
+    fl.appendChild(li);
+  });

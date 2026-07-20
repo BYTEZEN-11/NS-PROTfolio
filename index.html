@@ -143,3 +143,68 @@
             <span class="dot dot--red demo__rec"></span>
             <span class="demo__title">SHIP — LIVE DEMO</span>
             <span class="demo__ctx">CNCF / CLI</span>
+          </div>
+          <div class="demo__body" id="demoBody">
+            <p class="demo__hint">click play to run</p>
+          </div>
+          <div class="demo__controls">
+            <button class="btn btn--amber" id="demoPlay" data-magnetic>
+              <span id="demoPlayLabel">▶ PLAY</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec sec--oss" id="open-source">
+      <header class="sec__head reveal">
+        <div class="eyebrow" data-bind="sectionTitles.openSource.eyebrow"></div>
+        <h2 class="sec__h2 reveal-words" id="ossH2"></h2>
+        <div class="sec__cap">every contribution shipped upstream — add your orgs here</div>
+      </header>
+      <div class="oss__grid" id="ossGrid"></div>
+    </section>
+    <section class="sec sec--dark sec--projects" id="projects">
+      <header class="sec__head reveal">
+        <div class="eyebrow eyebrow--dark" data-bind="sectionTitles.projects.eyebrow"></div>
+        <h2 class="sec__h2 sec__h2--dark reveal-words" id="projectsH2"></h2>
+        <div class="sec__cap">work shipped across web, mobile, AI, and GenAI</div>
+      </header>
+      <div class="proj__tools reveal">
+        <div class="proj__filters" id="projFilters" role="tablist" aria-label="Filter projects by category"></div>
+        <div class="proj__controls">
+          <label class="proj__search">
+            <svg class="proj__search-ic" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/>
+              <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <input type="search" id="projSearch" placeholder="search by name, tech, or keyword…" aria-label="Search projects" />
+            <button class="proj__search-clear" id="projSearchClear" type="button" aria-label="Clear search" hidden>×</button>
+          </label>
+          <label class="proj__sort">
+            <span class="proj__sort-lbl">sort</span>
+            <select id="projSort" aria-label="Sort projects">
+            </select>
+            <span class="proj__sort-chev" aria-hidden="true">▾</span>
+          </label>
+        </div>
+      </div>
+      <div class="proj__counter">
+        <span id="projCount">0</span>
+        <span id="projCountLbl">projects</span>
+        <span class="proj__counter-sep" id="projFilterTag"></span>
+      </div>
+      <p class="proj__blurb" id="projBlurb"></p>
+      <div class="proj__grid" id="projGrid" aria-live="polite"></div>
+      <div class="proj__empty" id="projEmpty" hidden>
+        <div class="proj__empty-mark">∅</div>
+        <h3 class="proj__empty-h">no projects matched</h3>
+        <p class="proj__empty-p">try a different category, clear the search, or change the sort.</p>
+        <button class="btn btn--ghost proj__empty-btn" id="projEmptyReset" type="button">reset filters</button>
+      </div>
+    </section>
+    <section class="sec sec--skills" id="skills">
+      <header class="sec__head reveal">
+        <div class="eyebrow" data-bind="sectionTitles.skills.eyebrow"></div>
+        <h2 class="sec__h2 reveal-words" id="skillsH2"></h2>
+      </header>
+      <div class="skills__grid" id="skillsGrid"></div>

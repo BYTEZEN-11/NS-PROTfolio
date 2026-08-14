@@ -16,6 +16,8 @@ function bindData() {
     const v = getPath(el.dataset.bindTel);
     if (v != null) el.textContent = v;
   });
+  const resumeBtn = $("#resumeBtn");
+  if (resumeBtn && D.profile.resumeUrl) resumeBtn.href = D.profile.resumeUrl;
 }
 function splitWords(el) {
   if (!el) return;
@@ -578,9 +580,9 @@ function buildGallery() {
     tile.href = g.src;
     tile.target = "_blank";
     tile.rel = "noopener";
-    tile.className = "gallery__tile reveal" + (i === 0 ? " gallery__tile--big" : "");
-    tile.style.transitionDelay = (i * 50) + "ms";
-    tile.innerHTML = `<img src="${g.src}" alt="${g.alt}" loading="lazy" />`;
+    tile.className = "gallery__tile reveal";
+    tile.style.transitionDelay = (i * 40) + "ms";
+    tile.innerHTML = `<img src="${g.src}" alt="${g.alt}" loading="lazy" decoding="async" />`;
     grid.appendChild(tile);
     revealIO.observe(tile);
   });

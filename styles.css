@@ -847,28 +847,42 @@ input, textarea { font: inherit; color: inherit; }
 }
 @media (min-width: 720px) { .hl__grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1100px) { .hl__grid { grid-template-columns: repeat(4, 1fr); } }
-.gallery { position: relative; }
+/* ─── The Lab / Gallery ────────────────────────────────────────── */
+/* Uniform grid of identical-size image tiles. No filters, no overlays. */
 .gallery__grid {
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 220px; gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 .gallery__tile {
-  border-radius: var(--radius-card); overflow: hidden;
-  background: var(--paper-dim);
   position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--radius-card);
+  background: var(--paper-dim);
+  border: 1px solid var(--line);
+  display: block;
+  transition: border-color 200ms;
 }
-.gallery__tile img { width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-expo); }
+.gallery__tile:hover { border-color: var(--ink); }
+.gallery__tile img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  transition: transform 700ms var(--ease-expo);
+}
 .gallery__tile:hover img { transform: scale(1.05); }
-.gallery__tile--big { grid-column: span 2; grid-row: span 2; }
-.gallery__overlay {
-  position: absolute; inset: 0; pointer-events: none;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--f-display); font-size: clamp(72px, 18vw, 280px);
-  font-weight: 700; letter-spacing: -0.04em; text-transform: lowercase;
-  color: var(--ink); mix-blend-mode: overlay; opacity: 0.6;
-  line-height: 1;
+@media (min-width: 640px) {
+  .gallery__grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
 }
-@media (min-width: 900px) { .gallery__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 900px) {
+  .gallery__grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+}
+@media (min-width: 1280px) {
+  .gallery__grid { gap: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery__tile img { transition: none; }
+}
 .ig { display: grid; grid-template-columns: 1fr; gap: 56px; }
 .ig__col { display: flex; flex-direction: column; gap: 24px; }
 .ig__block { display: flex; flex-direction: column; gap: 12px; }
